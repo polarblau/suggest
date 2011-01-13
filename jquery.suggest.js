@@ -25,16 +25,33 @@
 			options = $.extend(true, defaults, options);
 			$this = $(this);
 
-			// create container
-			$this.wrap($('<div/>', {
-				'class': options.containerClass
-			}));
-
 			// create suggestion field
 			var $suggest = $('<div/>', {
-				'css' : { 'height' : $this.height() }
+				'css' : {
+					'height'          : $this.height(),
+					'width'           : $this.width(),
+					'position'        : 'absolute',
+					'top'             : $this.css('borderTopWidth'),
+					'left'            : $this.css('borderLeftWidth'),
+					'padding'         : $this.cssShortForAllSides('padding'),
+					'margin'          : $this.cssShortForAllSides('margin'),
+					'fontFamily'      : $this.css('fontFamily'),
+					'fontSize'        : $this.css('fontSize'),
+					'fontWeight'      : $this.css('fontWeight'),
+					'letterSpacing'   : $this.css('letterSpacing'),
+					'backgroundColor' : $this.css('backgroundColor'),
+					'color'           : '#ccc'
+				}
 			});
-			$suggest.addClass(options.suggestionClass).insertAfter($this);
+			
+			// create container
+			$this
+				.css('background', 'transparent')
+				.wrap($('<div/>', {
+					'css': { 'position' : 'relative' }
+				}));
+			
+			$suggest.insertAfter($this);
 
 			// 
 			$this.keyup(function(e) {
@@ -59,7 +76,14 @@
 				$.each(options.source, function(i, term) {
 					var regex = new RegExp('^' + needle, 'i');
 					if (regex.test(term)) {
-						$suggest.html('<span>' + needle + '</span>' + term.slice(needle.length));
+						var $hide = $('<span/>', 
+							{ 'css' : { 'color': $this.css('backgroundColor') },
+							'text' : needle
+						});
+						$suggest
+							.empty()
+							.append($hide)
+							.append(term.slice(needle.length));
 						// use first result
 						return false;
 					}
@@ -69,4 +93,20 @@
 		});
 
 	};
+	
+	/* A little helper to calculate the sum of different
+   * CSS properties around all four sides
+   *
+   * EXAMPLE:
+   * $('#my-div').cssSum('padding');
+   */
+  $.fn.cssShortForAllSides = function(property) {
+  	var $self = $(this), sum = [];
+  	$($.map(['Top', 'Right', 'Bottom', 'Left'], function(side){
+			return property + side;
+		})).each(function(i, e) {
+  		sum.push($self.css(e));
+  	});
+  	return sum.join(' ');
+  };
 })(jQuery);
