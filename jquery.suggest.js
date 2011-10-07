@@ -37,6 +37,8 @@
           'margin'          : $this.cssShortForAllSides('margin'),
           'fontFamily'      : $this.css('fontFamily'),
           'fontSize'        : $this.css('fontSize'),
+          'fontStyle'       : $this.css('fontStyle'),
+          'lineHeight'      : $this.css('lineHeight'),
           'fontWeight'      : $this.css('fontWeight'),
           'letterSpacing'   : $this.css('letterSpacing'),
           'backgroundColor' : $this.css('backgroundColor'),
@@ -60,7 +62,7 @@
         if (code == 13 || code == 9) {
           $(this).val($suggest.text());
           $suggest.html("");
-          return false;
+          e.preventDefault();
         }
 
         // some other key was pressed
