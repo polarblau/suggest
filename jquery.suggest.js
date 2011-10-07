@@ -57,6 +57,9 @@
 
       // 
       $this.keyup(function(e) {
+        // empty suggestion
+        $suggest.empty();
+        
         // 'enter' or 'tab' key was pressed
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13 || code == 9) {
@@ -73,9 +76,6 @@
           $suggest.html("");
           return false;
         }
-        
-        // empty suggestion
-        $suggest.empty();
         
         // compare input with haystack
         var regex = new RegExp('^' + needle, 'i'),
