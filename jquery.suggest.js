@@ -73,27 +73,25 @@
           $suggest.html("");
           return false;
         }
-
+        
+        // empty suggestion
+        $suggest.empty();
+        
         // compare input with haystack
-        $.each(options.source, function(i, term) {
-          var regex = new RegExp('^' + needle, 'i');
-          if (regex.test(term)) {
-            var $hide = $('<span/>', 
-              { 'css' : { 'color': $this.css('backgroundColor') },
-              'text' : needle
-            });
-            $suggest
-              .empty()
-              .append($hide)
-              .append(term.slice(needle.length));
-            // use first result
-            return false;
+        var regex = new RegExp('^' + needle, 'i'),
+            bg = $this.css('backgroundColor'),
+            template = function(term) {
+              return '<span style="color:'+bg+';">'+needle+'</span>'+term.slice(needle.length);
+            };
+        
+        for (var i = 0, l = options.source; i < l.length; i++) {
+          if (regex.test(l[i])) {
+            $suggest.html(template(l[i], needle));
+            break;
           }
-          $suggest.html("");
-        });
+        }
       });
     });
-
   };
   
   /* A little helper to calculate the sum of different
