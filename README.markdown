@@ -1,11 +1,9 @@
 # Usage
 	
 ```javascript
-$('#container').suggest({
-  'source': ["ActionScript", "AppleScript", "Asp", ...],  // required!
-  'containerClass': 'suggest-container',                  // optional
-  'suggestionClass': 'suggest-suggestion'                 // optional
-});
+$('#container').suggest(
+  'source': ["ActionScript", "AppleScript", "Asp", ...]
+);
 ```
 
 Check out the [demo here](http://www.polarblau.com/code/jquery/suggest).
