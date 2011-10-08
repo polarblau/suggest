@@ -6,7 +6,7 @@ $('#container').suggest(
 );
 ```
 
-Check out the [demo here](http://www.polarblau.com/code/jquery/suggest).
+Check out the [demo here](http://polarblau.github.com/suggest/).
 	
 Requires basic HTML structure
 
