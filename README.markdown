@@ -6,13 +6,11 @@ $('#container').suggest(
 );
 ```
 
-Check out the [demo here](http://polarblau.github.com/suggest/).
-	
-Requires basic HTML structure
-
 ```html
 <input type="text" name="search" id="search" class="search" />
 ```
+
+Check out the [demo here](http://polarblau.github.com/suggest/).
 
 The plugin will generate the CSS required based on the input's styles.
 	
