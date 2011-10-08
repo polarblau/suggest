@@ -7,16 +7,15 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>jQuery.suggest | Inline autosuggest</title>
+  <title>jQuery.suggest plugin</title>
   <meta name="description" content="Inline jQuery autosuggest plugin">
   <meta name="author" content="Florian Plank, http://polarblau.com">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="style.css" charset="utf-8" />
+  <link rel="stylesheet" href="stylesheets/style.css" charset="utf-8" />
 
   <style>
-    input.search {
+    input#search {
       padding: 5px;
-      margin-bottom: 0.5em;
       font-size: 1.2em;
       letter-spacing: 0;
       font-weight: normal;
@@ -38,29 +37,27 @@
   <div class="container">
     
     <a class="ribbon" href="https://github.com/polarblau/suggest" target="_blank">
-      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
+      <img src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub">
     </a>
     
     <header>
       <h1>jQuery.suggest</h1>
       <p>
-        <a href="https://github.com/polarblau/suggest" title="GitHub repository" target="_blank">
-          jQuery.suggest
-        </a>, a inline jQuery plugin. (You know the effect from Google's main search field.)
+        <a href="https://github.com/polarblau/suggest" title="GitHub repository" target="_blank">jQuery.suggest</a>, a simple inline autosuggest jQuery plugin. It takes an array of terms as haystack and suggests the user the first item that matches what has been typed to this point. The suggestion is updated with every keystroke. <code>Tab</code> or <code>Enter</code> will accept the suggestion and update the input field accordingly.
       </p>
     </header>
  
-    <div class="section">
-      <h2>Example</h2>
+    <div>
+      <h2>Usage</h2>
       
-      <div class="example">
+      <div>
         <h3>Markup</h3>
         <pre class="prettyprint"><code>
-&lt;input type="text" name="search" id="search" class="search" /&gt;
+&lt;input type="text" name="search" id="search" /&gt;
         </code></pre>
       </div>
       
-      <div class="example">
+      <div>
         <h3>Javascript</h3>
         <pre class="prettyprint"><code>
 var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC", ...];
@@ -70,19 +67,48 @@ $(function(){
 })
         </code></pre>
       </div>
-      <div class="example">
+      
+      <div>
         <h3><strong>Demo</strong></h3>
-        <input type="text" name="search" id="search" class="search" />
+        <input type="text" name="search" id="search" />
         <p>
-          <small>
-            (Start typing the name of a programming language&hellip;)
-          </small>
+          <small>(Start typing the name of a programming language&hellip;)</small>
         </p>
       </div>
-    </div>
-  </div>
       
+    </div>
+    
+    <hr />
+
+    <div>
+      <h2>License</h2>
+      <p>
+        Copyright (c) 2011 Florian Plank (http://www.polarblau.com/). 
+        <br />
+        Dual licensed under the MIT (MIT-LICENSE.txt)
+        and GPL (GPL-LICENSE.txt) licenses.
+    </div>
+    
+    <hr />
+    
+    <div id="download">
+      <h2>Download the source</h2>
+      <a href="https://github.com/polarblau/suggest/zipball/master" title="Download">
+        <img src="images/zip.png" width="60" height="78" alt="ZIP icon" /> 
+      </a>
+      <a href="https://github.com/polarblau/suggest/tarball/master" title="Download">
+        <img src="images/tar.png" width="60" height="78" alt="ZIP icon" /> 
+      </a>
+    </div>
+    
+  </div>
   
+  <footer>
+    <a href="http://polarblau.com" title="Polarblau">
+      <img src="images/logo.png" width="135" height="65" alt="Polarblau logo" />
+    </a>
+  </footer>
+
   <script src="http://code.jquery.com/jquery.min.js"></script>
   <script src="https://github.com/polarblau/suggest/raw/master/jquery.suggest.js"></script>
   <script>
@@ -92,6 +118,8 @@ $(function(){
       console.log($('#search').suggest(haystack));
     })
   </script>
+  
+  
   
 </body>
 </html>

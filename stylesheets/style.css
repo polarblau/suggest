@@ -1,4 +1,4 @@
-/* HTML5 ✰ Boilerplate
+/* HTML5 Boilerplate
  * ==|== normalize ==========================================================
  */
 
@@ -67,10 +67,11 @@ td { vertical-align: top; }
    ========================================================================== */
 
 body {
-  background: url(bg.jpeg);
+  background: url(../images/bg.jpeg);
 }
+
 .container { 
-  position:relative; overflow:hidden; 
+  position:relative; 
   width: 600px; 
   padding: 40px 60px; 
   border: 1px solid #b4aec8;
@@ -78,7 +79,8 @@ body {
   background: #fff;
   -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.1);
   -moz-box-shadow: 0 0 15px rgba(0,0,0,0.1); 
-  box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+  box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+}
   
 .container pre,
 .container .prettyprint { 
@@ -88,16 +90,54 @@ body {
   font-size: 13px; 
   background: #eeecf1;
 }
-.ribbon { position: absolute; top: -1px; right: -1px; opacity: 0.9; }
-.ribbon:hover, .ribbon:focus, .ribbon:active { opacity: 1; }
-.ribbon img { display: block; border: 0; }
-header { 
-  padding-right:80px;
+
+.ribbon { 
+  position: absolute; 
+  top: -1px; 
+  right: -1px; 
+  opacity: 0.9;
 }
-.section { margin: 40px 0 20px; }
-.example { margin: 10px 0 20px; }
-.example p { margin: 0; padding: 0 }
-p small { color: #666; }
+.ribbon:hover, .ribbon:focus, .ribbon:active { 
+  opacity: 1;
+}
+.ribbon img { 
+  display: block; 
+  border: 0;
+}
+
+header { 
+  padding-right: 80px;
+  margin-bottom: 3em;
+}
+
+#container > div {
+  margin: 4em 0 2em;
+}
+
+#container > div > div { 
+  margin: 1em 0 2em;
+}
+
+#download a {
+  margin-right: 10px;
+}
+
+p {
+  line-height: 1.3em;
+}
+
+p small { 
+  color: #666; 
+}
+
+hr {
+  margin: 2em 0;
+}
+
+footer {
+  text-align: center;
+  margin-bottom: 2em;
+}
 
 /* ==|== non-semantic helper classes ======================================== */
 .ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
