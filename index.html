@@ -1,65 +1,97 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>jQuery Suggest plugin DEMO</title>
-		<script src="jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script src="jquery.suggest.js" type="text/javascript" charset="utf-8"></script>
-		<style type="text/css" media="screen">
-			/* CSS RESET */
-			html, body, div, span, applet, object, iframe,
-			h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-			a, abbr, acronym, address, big, cite, code,
-			del, dfn, em, font, img, ins, kbd, q, s, samp,
-			small, strike, strong, sub, sup, tt, var,
-			b, u, i, center,
-			dl, dt, dd, ol, ul, li,
-			fieldset, form, label, legend,
-			table, caption, tbody, tfoot, thead, tr, th, td {
-				margin: 0;
-				padding: 0;
-				border: 0;
-				outline: 0;
-				font-size: 100%;
-				vertical-align: baseline;
-				background: transparent;
-			}
-			
-			body {
-				background: #ccc;
-			}
-			
-			#container {
-				padding: 20px;
-			}
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>jQuery.suggest | Inline autosuggest</title>
+  <meta name="description" content="Inline jQuery autosuggest plugin">
+  <meta name="author" content="Florian Plank, http://polarblau.com">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css" charset="utf-8" />
 
-			input.search {
-				padding: 5px;
-				font-size: 1.2em;
-				letter-spacing: 0;
-				font-weight: normal;
-				font-family: Helvetica, Arial, sans-serif !important;
-				position: relative;
-				color: #333;
-				width: 200px;
-				background: #fff;
-				z-index: 10;
-			}
+  <style>
+    input.search {
+      padding: 5px;
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+      letter-spacing: 0;
+      font-weight: normal;
+      font-family: Helvetica, Arial, sans-serif !important;
+      position: relative;
+      color: #333;
+      width: 200px;
+      background: #fff;
+      z-index: 10;
+    }
+  </style>
+  
+  <link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css"> 
+  <script src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+  
+</head>
 
-		</style>
-		<script type="text/javascript" charset="utf-8">
+<body onload="prettyPrint()">
+  <div class="container">
+    
+    <a class="ribbon" href="https://github.com/polarblau/suggest" target="_blank">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
+    </a>
+    
+    <header>
+      <h1>jQuery.suggest</h1>
+      <p>
+        <a href="https://github.com/polarblau/suggest" title="GitHub repository" target="_blank">
+          jQuery.suggest
+        </a>, a inline jQuery plugin. (You know the effect from Google's main search field.)
+      </p>
+    </header>
+ 
+    <div class="section">
+      <h2>Example</h2>
+      
+      <div class="example">
+        <h3>Markup</h3>
+        <pre class="prettyprint"><code>
+&lt;input type="text" name="search" id="search" class="search" /&gt;
+        </code></pre>
+      </div>
+      
+      <div class="example">
+        <h3>Javascript</h3>
+        <pre class="prettyprint"><code>
+var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC", ...];
 
-			$(function() {
-					var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Small Talk", "Scheme"];
-					$('#search').suggest(haystack);
-		  });
+$(function(){
+  $('#container').suggest(haystack);
+})
+        </code></pre>
+      </div>
+      <div class="example">
+        <h3><strong>Demo</strong></h3>
+        <input type="text" name="search" id="search" class="search" />
+        <p>
+          <small>
+            (Start typing the name of a programming language&hellip;)
+          </small>
+        </p>
+      </div>
+    </div>
+  </div>
+      
+  
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src="https://github.com/polarblau/suggest/raw/master/jquery.suggest.js"></script>
+  <script>
+    var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Small Talk", "Scheme"];
 
-		</script>
-	</head>
-	<body>
-		<div id="container">
-			<input type="text" name="search" id="search" class="search" />
-		</div>
-	</body>
+    $(function(){
+      console.log($('#search').suggest(haystack));
+    })
+  </script>
+  
+</body>
 </html>
