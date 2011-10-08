@@ -7,7 +7,7 @@ $('#container').suggest(
 ```
 
 ```html
-<input type="text" name="search" id="search" class="search" />
+<input type="text" name="search" id="search" />
 ```
 
 Check out the [demo here](http://polarblau.github.com/suggest/).
