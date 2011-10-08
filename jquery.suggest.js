@@ -42,35 +42,6 @@
           'color'           : '#ccc'
         }
       });
-      
-      // when setting the color to transparent, the cursor will not
-      // be visibile anymore, we need to fix that
-      var inputCursorStyle = {
-        'borderRight'       : '1px solid ' + $this.css('color')
-      };
-      
-      // this helper will show what has been input
-      var $input = $('<div/>', {
-        'css' : {
-          'position'        : 'absolute',
-          'height'          : $this.height(),
-          'top'             : $this.css('paddingTop'),
-          'bottom'          : $this.css('paddingBottom'),
-          'left'            : $this.css('borderLeftWidth'),
-          'paddingLeft'     : $this.css('paddingLeft'),
-          'paddingRight'    : 0,
-          'paddingTop'      : $this.css('borderTopWidth'),
-          'paddingBottom'   : $this.css('borderBottomWidth'),
-          'margin'          : $this.cssShortForAllSides('margin'),
-          'fontFamily'      : $this.css('fontFamily'),
-          'fontSize'        : $this.css('fontSize'),
-          'fontStyle'       : $this.css('fontStyle'),
-          'lineHeight'      : $this.css('lineHeight'),
-          'fontWeight'      : $this.css('fontWeight'),
-          'letterSpacing'   : $this.css('letterSpacing'),
-          'color'           : $this.css('color')
-        }
-      });
 
       $this
         .attr({
@@ -78,34 +49,35 @@
           'spellcheck'      : "false",
           'dir'             : "ltr"
         })
+        // by setting the background to transparent, we will
+        // be able to "see through" to the suggestion helper
         .css({
-          'color'           : 'transparent',
           'background'      : 'transparent'
         })                  
         .wrap($('<div/>', {
-          'css': { 'position' : 'relative' }
+          'css': { 
+            'position'      : 'relative' 
+          }
         }))
         .bind('keyup.suggest', function(e) {
           
           // what has been input?
           var needle = $(this).val();
-                  
           // convert spaces to make them visible
-          var needleWithWhiteSpace = needle.replace(' ', '&#160;');
-          $input.html(needleWithWhiteSpace);
-        
+          var needleWithWhiteSpace = needle.replace(' ', '&#160;');       
+          
           // accept suggestion with 'enter' or 'tab'
-          var code = (e.keyCode ? e.keyCode : e.which);
+          var code = e.which;//(e.keyCode ? e.keyCode : e.which);
           if (code == 13 || code == 9) {
             var currentlySuggested = $suggest.text();
             $(this).val(currentlySuggested);
-            $input.text(currentlySuggested);
             return false;
           }
-        
+          
+          // make sure the helper is empty
           $suggest.empty();
       
-          // nothing has been input
+          // if nothing has been input, leave it with that
           if (!$.trim(needle).length) {
             return false;
           }
@@ -119,20 +91,13 @@
             }
           }
         })
-        
-        // show the fake cursor on focus
-        .bind('focus.suggest', function(){
-          $input.css(inputCursorStyle);
-        })
-        
-        // hide the fake cursor on blur
+    
+        // clear suggestion on blur
         .bind('blur.suggest', function(){
           $suggest.empty();
-          $input.css('borderRight', 'none');
         });
         
-        // insert the helpers within the wrapper
-        $input.insertAfter($this);
+        // insert the suggestion helper within the wrapper
         $suggest.insertAfter($this);
           
     });
