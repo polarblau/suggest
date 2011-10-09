@@ -115,10 +115,11 @@
    */
   $.fn.cssShortForAllSides = function(property) {
     var $self = $(this), sum = [];
-    $($.map(['Top', 'Right', 'Bottom', 'Left'], function(side){
+    var properties = $.map(['Top', 'Right', 'Bottom', 'Left'], function(side){
       return property + side;
-    })).each(function(i, e) {
-      sum.push($self.css(e));
+    });
+    $.each(properties, function(i, e) {
+      sum.push($self.css(e) || "0");
     });
     return sum.join(' ');
   };

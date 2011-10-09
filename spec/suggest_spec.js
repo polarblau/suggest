@@ -178,5 +178,52 @@ describe('suggest', function () {
     $input.suggest(["Foo"]).addClass('foo');
     expect($input.hasClass('foo')).toBeTruthy();
   });
+  
+  // TEST: Helper: cssShortForAllSides
+  
+  describe('cssShortForAllSides', function(){
+    
+    var $div;
+    
+    beforeEach(function(){
+      $div = $("<div/>");
+    });
+    
+    afterEach(function(){
+      $div.remove();
+    });
+    
+    it('should return the shortcode if only one property set', function() {
+      $div.attr("style", "padding-left: 5px");
+      expect($div.cssShortForAllSides('padding')).toEqual("0 0 0 5px");
+    });
+    
+    it('should return the shortcode if only two properties set', function() {
+      $div.attr("style", "padding-left: 5px; padding-bottom: 2px");
+      expect($div.cssShortForAllSides('padding')).toEqual("0 0 2px 5px");
+    });
+    
+    it('should return the shortcode if only three properties set', function() {
+      $div.attr("style", "padding-left: 5px; padding-bottom: 2px; padding-top: 1px;");
+      expect($div.cssShortForAllSides('padding')).toEqual("1px 0 2px 5px");
+    });
+    
+    it('should return the shortcode if all four properties set', function() {
+      $div.attr("style", "padding-right: 7px; padding-left: 5px; padding-bottom: 2px; padding-top: 1px;");
+      expect($div.cssShortForAllSides('padding')).toEqual("1px 7px 2px 5px");
+    });
+    
+    it('should return the shortcode if x y shortcode has been set', function() {
+      $div.attr("style", "padding: 2px 4px");
+      expect($div.cssShortForAllSides('padding')).toEqual("2px 4px 2px 4px");
+    });
+    
+    it('should return the shortcode if x shortcode has been set', function() {
+      $div.attr("style", "padding: 2px");
+      expect($div.cssShortForAllSides('padding')).toEqual("2px 2px 2px 2px");
+    });
+    
+    
+  });
 
 });
