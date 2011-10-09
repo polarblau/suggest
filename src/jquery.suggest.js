@@ -71,7 +71,7 @@
           var needleWithWhiteSpace = needle.replace(' ', '&nbsp;');       
           
           // accept suggestion with 'enter' or 'tab'
-          var code = e.which;//(e.keyCode ? e.keyCode : e.which);
+          var code = (e.keyCode ? e.keyCode : e.which);
           if (code == 13 || code == 9) {
             var currentlySuggested = $suggest.text();
             $(this).val(currentlySuggested);
