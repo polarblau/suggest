@@ -66,9 +66,12 @@
 var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC", ...];
 
 $(function(){
-  $('#container').suggest(haystack);
+  $('#container').suggest(haystack, {
+    suggestionColor: '#cccccc'         // default
+  });
 });
         </code></pre>
+        Setting the <code>suggestionColor</code> setting is optional. It defaults to <code>#cccccc</code>.
       </div>
       
       <div>
