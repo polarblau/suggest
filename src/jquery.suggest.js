@@ -64,7 +64,7 @@
           // what has been input?
           var needle = $(this).val();
           // convert spaces to make them visible
-          var needleWithWhiteSpace = needle.replace(' ', '&#160;');       
+          var needleWithWhiteSpace = needle.replace(' ', '&nbsp;');       
           
           // accept suggestion with 'enter' or 'tab'
           var code = e.which;//(e.keyCode ? e.keyCode : e.which);

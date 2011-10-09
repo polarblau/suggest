@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jasmine Test Runner</title>
+        <link rel="stylesheet" type="text/css" href="../lib/jasmine-1.1.0/jasmine.css">
+        <script type="text/javascript" src="../lib/jasmine-1.1.0/jasmine.js"></script>
+        <script type="text/javascript" src="../lib/jasmine-1.1.0/jasmine-html.js"></script>
+
+        <script src="http://code.jquery.com/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="suggest_spec.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../src/jquery.suggest.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+
+        <script type="text/javascript">
+            jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+            jasmine.getEnv().execute();
+        </script>
+
+    </body>
+</html>
