@@ -1,9 +1,10 @@
 # Usage
 	
 ```javascript
-$('#container').suggest(
-  'source': ["ActionScript", "AppleScript", "Asp", ...]
-);
+var haystack = ["ActionScript", "AppleScript", "Asp", ...];
+$('#container').suggest(haystack, { 
+  suggestionColor: '#cccccc' // default
+});
 ```
 
 ```html

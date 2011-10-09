@@ -43,6 +43,18 @@ describe('suggest', function () {
 
   //
   
+  // TEST: Settings
+  
+  it('should use a default color for the suggestion text', function() {
+    var $input = $("#search").suggest(["foo"]);
+    expect($input.next("div").css("color")).toEqual("rgb(204, 204, 204)");
+  });
+  
+  it('should allow setting a color for the suggestion text', function() {
+    var $input = $("#search").suggest(["foo"], { 'suggestionColor': "red" });
+    expect($input.next("div").css("color")).toEqual("rgb(255, 0, 0)");
+  });
+  
   // TEST: CSS & Attrbutes 
   
   it('should set the input background color to transparent', function() {

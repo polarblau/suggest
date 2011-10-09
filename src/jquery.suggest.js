@@ -15,7 +15,11 @@
 
 (function($) {
 
-  $.fn.suggest = function(source) {
+  $.fn.suggest = function(source, options) {
+    
+    var settings = $.extend({
+      suggestionColor : '#ccc'
+    }, options);
 
     return this.each(function() {
 
@@ -39,7 +43,7 @@
           'fontWeight'      : $this.css('fontWeight'),
           'letterSpacing'   : $this.css('letterSpacing'),
           'backgroundColor' : $this.css('backgroundColor'),
-          'color'           : '#ccc'
+          'color'           : settings.suggestionColor
         }
       });
 
