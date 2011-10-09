@@ -75,7 +75,7 @@ body {
   width: 600px; 
   padding: 40px 60px; 
   border: 1px solid #b4aec8;
-  margin: 40px auto 20px;
+  margin: 40px auto 0.5em;
   background: #fff;
   -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.1);
   -moz-box-shadow: 0 0 15px rgba(0,0,0,0.1); 
@@ -137,6 +137,14 @@ hr {
 footer {
   text-align: center;
   margin-bottom: 2em;
+}
+
+footer p small { 
+  color: #999; 
+}
+
+footer p {
+  margin-bottom: 1.5em;
 }
 
 /* ==|== non-semantic helper classes ======================================== */
