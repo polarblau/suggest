@@ -63,6 +63,19 @@
             'position'      : 'relative' 
           }
         }))
+        
+        // we need to capture `tab` keydown, but for everything else
+        // we need to capture keyup events -- hence let's forward 
+        // the event in case the tab key has been pressed
+        .bind('keydown.suggest', function(e){
+          var code = (e.keyCode ? e.keyCode : e.which);
+          if (code == 9) {
+            e.preventDefault();
+            var forward = $.Event('keyup.suggest', { keyCode: 9 });
+            $this.trigger(forward);
+          }
+        })
+        
         .bind('keyup.suggest', function(e) {
           
           // what has been input?
@@ -73,14 +86,14 @@
           // accept suggestion with 'enter' or 'tab'
           var code = (e.keyCode ? e.keyCode : e.which);
           if (code == 13 || code == 9) {
+            e.preventDefault();
             var currentlySuggested = $suggest.text();
             $(this).val(currentlySuggested);
-            return false;
           }
           
           // make sure the helper is empty
           $suggest.empty();
-      
+                 
           // if nothing has been input, leave it with that
           if (!$.trim(needle).length) {
             return false;
