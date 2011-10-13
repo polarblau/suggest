@@ -18,7 +18,8 @@
   $.fn.suggest = function(source, options) {
     
     var settings = $.extend({
-      suggestionColor : '#ccc'
+      suggestionColor       : '#ccc',
+      moreIndicatorClass    : 'suggest-more'
     }, options);
 
     return this.each(function() {
@@ -46,6 +47,21 @@
           'color'           : settings.suggestionColor
         }
       });
+      
+      var $more = $('<span/>', {
+        'css' : {
+          'position'        : 'absolute',
+          'top'             : $suggest.height() + parseInt($this.css('fontSize'), 10) / 2,
+          'left'            : $suggest.width(),
+          'display'         : 'block',
+          'fontSize'        : $this.css('fontSize'),
+          'fontFamily'      : $this.css('fontFamily'),
+          'color'           : settings.suggestionColor
+        },
+        'class'             : settings.moreIndicatorClass
+      })
+      .html('&hellip;')
+      .hide();
 
       $this
         .attr({
@@ -60,20 +76,19 @@
         })                  
         .wrap($('<div/>', {
           'css': { 
-            'position'      : 'relative' 
+            'position'      : 'relative',
+            'paddingBottom' : '1em'
           }
         }))
         
-        // we need to capture `tab` keydown, but for everything else
-        // we need to capture keyup events -- hence let's forward 
-        // the event in case the tab key has been pressed
         .bind('keydown.suggest', function(e){
           var code = (e.keyCode ? e.keyCode : e.which);
           
+          // the tab key will force the focus to the next input
+          // already on keydown, let's prevent that 
+          // unless the alt key is pressed for convenience
           if (code == 9 && !e.altKey) {
             e.preventDefault();
-            var forward = $.Event('keyup.suggest', { keyCode: 9 });
-            $(this).trigger(forward);
           
           // use arrow keys to cycle through suggestions
           } else if (code == 38 || code == 40) {
@@ -81,8 +96,10 @@
             var suggestions = $(this).data('suggestions');
             
             if (suggestions.all.length > 1) {
+              // arrow down:
               if (code == 40 && suggestions.index < suggestions.all.length - 1) {
                 suggestions.suggest.html(suggestions.all[++suggestions.index]);
+              // arrow up:
               } else if (code == 38 && suggestions.index > 0) {
                 suggestions.suggest.html(suggestions.all[--suggestions.index]);
               }
@@ -98,16 +115,22 @@
           if (code == 38 || code == 40) {
             return false;
           }
+          
+          // be default we hide the "more suggestions" indicator
+          $more.hide();
+          
           // what has been input?
           var needle = $(this).val();
+          
           // convert spaces to make them visible
           var needleWithWhiteSpace = needle.replace(' ', '&nbsp;');       
           
           // accept suggestion with 'enter' or 'tab'
+          // if the suggestion hasn't been accepted yet
           if (code == 9 || code == 13) {
             e.preventDefault();
-            var currentlySuggested = $suggest.text();
-            $(this).val(currentlySuggested);
+            $(this).val($suggest.text());
+            // clean the suggestion for the looks 
             $suggest.empty();
             return false;
           }
@@ -139,6 +162,8 @@
               'index'  : 0,
               'suggest': $suggest
             });
+            // show the indicator that there's more suggestions available
+            $more.show();
           }
         })
     
@@ -147,8 +172,9 @@
           $suggest.empty();
         });
         
-        // insert the suggestion helper within the wrapper
+        // insert the suggestion helpers within the wrapper
         $suggest.insertAfter($this);
+        $more.insertAfter($suggest);
         
     });
 
