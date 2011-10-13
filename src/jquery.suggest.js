@@ -72,7 +72,7 @@
           if (code == 9) {
             e.preventDefault();
             var forward = $.Event('keyup.suggest', { keyCode: 9 });
-            $this.trigger(forward);
+            $(this).trigger(forward);
           }
         })
         
@@ -89,6 +89,7 @@
             e.preventDefault();
             var currentlySuggested = $suggest.text();
             $(this).val(currentlySuggested);
+            $suggest.empty();
           }
           
           // make sure the helper is empty
