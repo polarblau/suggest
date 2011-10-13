@@ -69,27 +69,47 @@
         // the event in case the tab key has been pressed
         .bind('keydown.suggest', function(e){
           var code = (e.keyCode ? e.keyCode : e.which);
+          
           if (code == 9) {
             e.preventDefault();
             var forward = $.Event('keyup.suggest', { keyCode: 9 });
             $(this).trigger(forward);
+          
+          // use arrow keys to cycle through suggestions
+          } else if (code == 38 || code == 40) {
+            e.preventDefault();
+            var suggestions = $(this).data('suggestions');
+            
+            if (suggestions.all.length > 1) {
+              if (code == 40 && suggestions.index < suggestions.all.length - 1) {
+                suggestions.suggest.html(suggestions.all[++suggestions.index]);
+              } else if (code == 38 && suggestions.index > 0) {
+                suggestions.suggest.html(suggestions.all[--suggestions.index]);
+              }
+              $(this).data('suggestions').index = suggestions.index;
+            }
           }
         })
         
         .bind('keyup.suggest', function(e) {
+          var code = (e.keyCode ? e.keyCode : e.which);
           
+          // Have the arrow keys been pressed?
+          if (code == 38 || code == 40) {
+            return false;
+          }
           // what has been input?
           var needle = $(this).val();
           // convert spaces to make them visible
           var needleWithWhiteSpace = needle.replace(' ', '&nbsp;');       
           
           // accept suggestion with 'enter' or 'tab'
-          var code = (e.keyCode ? e.keyCode : e.which);
-          if (code == 13 || code == 9) {
+          if (code == 9 || code == 13) {
             e.preventDefault();
             var currentlySuggested = $suggest.text();
             $(this).val(currentlySuggested);
             $suggest.empty();
+            return false;
           }
           
           // make sure the helper is empty
@@ -104,11 +124,21 @@
           // by escaping the input' string for use with regex 
           // we allow to search for terms containing specials chars as well
           var regex = new RegExp('^' + needle.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
+          var suggestions = [];
           for (var i = 0, l = source; i < l.length; i++) {
             if (regex.test(l[i])) {      
-              $suggest.html(needleWithWhiteSpace + l[i].slice(needle.length));
-              break;
+              suggestions.push(needleWithWhiteSpace + l[i].slice(needle.length));
             }
+          }
+          if (suggestions.length > 0) {
+            // if there's any suggestions found, use the first 
+            $suggest.html(suggestions[0]);
+            // store found suggestions in data for use with arrow keys
+            $(this).data('suggestions', {
+              'all'    : suggestions,
+              'index'  : 0,
+              'suggest': $suggest
+            });
           }
         })
     
