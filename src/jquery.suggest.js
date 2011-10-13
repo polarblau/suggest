@@ -155,15 +155,22 @@
           }
           if (suggestions.length > 0) {
             // if there's any suggestions found, use the first 
-            $suggest.html(suggestions[0]);
+            // don't show the suggestion if it's identical with the current input
+            if (suggestions[0] !== needle) {
+              $suggest.html(suggestions[0]);
+            }
             // store found suggestions in data for use with arrow keys
             $(this).data('suggestions', {
               'all'    : suggestions,
               'index'  : 0,
               'suggest': $suggest
             });
+            
             // show the indicator that there's more suggestions available
-            $more.show();
+            // only for more than one suggestion
+            if (suggestions.length > 1) {
+              $more.show();
+            }
           }
         })
     

@@ -113,10 +113,16 @@ describe('suggest', function() {
     expect($input.next("div").text()).toEqual("c++");
   });
 
-  it('should suggest first found item', function() {
+  it('should initially suggest first found item', function() {
     var $input = $("#search").suggest(["foo", "faa"]);
     enterTextAndTriggerKeyUp($input, "f", 70);
     expect($input.next("div").text()).toEqual("foo");
+  });
+  
+  it('should suggest nothing if the current input matches the first suggestion', function() {
+    var $input = $("#search").suggest(["foo", "faa"]);
+    enterTextAndTriggerKeyUp($input, "foo", 70);
+    expect($input.next("div").is(":empty")).toBeTruthy();
   });
 
   it('should suggest nothing if nothing found', function() {
@@ -196,6 +202,12 @@ describe('suggest', function() {
     enterTextAndTriggerKeyUp($input, "f", 70);
     expect($input.next("div").text()).toEqual("foo");
     expect($input.next().next("span.suggest-more").is(":visible")).toBeTruthy();
+  });
+  
+  it('should hide the suggestions indicator in case of only one suggestion', function() {
+    var $input = $("#search").suggest(["foo", "faa"]);
+    enterTextAndTriggerKeyUp($input, "foo", 70);
+    expect($input.next().next("span.suggest-more").is(":visible")).toBeFalsy();
   });
   
   it('should show the next suggestion when the arrow down key is pressed', function() {
