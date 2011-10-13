@@ -70,7 +70,7 @@
         .bind('keydown.suggest', function(e){
           var code = (e.keyCode ? e.keyCode : e.which);
           
-          if (code == 9) {
+          if (code == 9 && !e.altKey) {
             e.preventDefault();
             var forward = $.Event('keyup.suggest', { keyCode: 9 });
             $(this).trigger(forward);
