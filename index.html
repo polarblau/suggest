@@ -46,6 +46,9 @@
         <a href="https://github.com/polarblau/suggest" title="GitHub repository" target="_blank">jQuery.suggest</a>, a simple inline autosuggest jQuery plugin. It takes an array of terms as haystack and suggests the user the first item that matches what has been typed to this point. The suggestion is updated with every keystroke. <code>Tab</code> or <code>Enter</code> will accept the suggestion and update the input field accordingly.
       </p>
       <p>
+        If more than one match is found, a small indicator will appear underneath the input (you can still it via CSS as you wish). The user can then use the arrow up/down keys to cycle through the options.
+      </p>
+      <p>
         The plugin has been tested using Jasmine. The test suite is included.
       </p>
     </header>
@@ -67,11 +70,13 @@ var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC", ...];
 
 $(function(){
   $('#container').suggest(haystack, {
-    suggestionColor: '#cccccc'
+    suggestionColor   : '#cccccc',
+    moreIndicatorClass: 'suggest-more'
   });
 });
         </code></pre>
-        Setting the <code>suggestionColor</code> setting is optional. It defaults to <code>#cccccc</code>.
+        <p>Setting the <code>suggestionColor</code> setting is optional. It defaults to <code>#cccccc</code>.</p>
+        <p><code>moreIndicatorClass</code> (default: <code>suggest-more</code>) can be used to style the small indicator, appearing when the plugin has found more than one suggestion.</p>
       </div>
       
       <div>

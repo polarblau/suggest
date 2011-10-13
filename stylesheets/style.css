@@ -68,6 +68,9 @@ td { vertical-align: top; }
 
 body {
   background: url(../images/bg.jpeg);
+  font-size: 1em;
+  line-height: 1.4em;
+  color: #222;
 }
 
 .container { 
@@ -82,13 +85,17 @@ body {
   box-shadow: 0 0 15px rgba(0,0,0,0.1); 
 }
   
-.container pre,
+.container .container pre,
 .container .prettyprint { 
   padding: 0 20px; 
   border: 1px solid #bab1cc; 
   margin: 0 0 20px; 
-  font-size: 13px; 
+  font-size: 14px; 
   background: #eeecf1;
+}
+
+.container p code {
+  color: #9c8eb7;
 }
 
 .ribbon { 
@@ -123,7 +130,7 @@ header {
 }
 
 p {
-  line-height: 1.3em;
+
 }
 
 p small { 
