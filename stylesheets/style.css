@@ -73,6 +73,23 @@ body {
   color: #222;
 }
 
+header h1 {
+  position: relative;
+}
+
+header h1 span {
+  font-size: 0.5em;
+  padding: 3px 7px 2px 24px;
+  color: #777;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: transparent url(../images/tag.png) no-repeat 4px center;
+  border: 1px solid #ccc;
+  position: absolute;
+  bottom: -0.25em;
+}
+
 .container { 
   position:relative; 
   width: 600px; 
@@ -127,10 +144,6 @@ header {
 
 #download a {
   margin-right: 10px;
-}
-
-p {
-
 }
 
 p small { 
