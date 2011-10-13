@@ -3,7 +3,8 @@
 ```javascript
 var haystack = ["ActionScript", "AppleScript", "Asp", ...];
 $('#container').suggest(haystack, { 
-  suggestionColor: '#cccccc' // default
+  suggestionColor   : '#cccccc',     // default
+  moreIndicatorClass: 'suggest-more' // default
 });
 ```
 
@@ -11,7 +12,7 @@ $('#container').suggest(haystack, {
 <input type="text" name="search" id="search" />
 ```
 
-Check out the [demo here](http://polarblau.github.com/suggest/).
+More information and demo can be found [here](http://polarblau.github.com/suggest/).
 
 The plugin will generate the CSS required based on the input's styles.
 	
