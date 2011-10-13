@@ -100,9 +100,12 @@
           }
           
           // see if anything in source matches the input
-          var regex = new RegExp('^' + needle, 'i');
+          // by escaping the input' string for use with regex 
+          // we allow to search for terms containing specials chars as well
+          var regex = new RegExp('^' + needle.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
+          console.log(regex);
           for (var i = 0, l = source; i < l.length; i++) {
-            if (regex.test(l[i])) {            
+            if (regex.test(l[i])) {      
               $suggest.html(needleWithWhiteSpace + l[i].slice(needle.length));
               break;
             }
@@ -116,8 +119,9 @@
         
         // insert the suggestion helper within the wrapper
         $suggest.insertAfter($this);
-          
+        
     });
+
   };
   
   /* A little helper to calculate the sum of different
