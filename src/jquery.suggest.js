@@ -103,7 +103,6 @@
           // by escaping the input' string for use with regex 
           // we allow to search for terms containing specials chars as well
           var regex = new RegExp('^' + needle.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
-          console.log(regex);
           for (var i = 0, l = source; i < l.length; i++) {
             if (regex.test(l[i])) {      
               $suggest.html(needleWithWhiteSpace + l[i].slice(needle.length));
