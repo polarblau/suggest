@@ -137,9 +137,9 @@
           if (code == 9 || code == 13) {
             // only accept if there's anything suggested
             if ($suggest.text().length > 0) {
-              
               e.preventDefault();
-              $(this).val($suggest.text());
+              var suggestions = $(this).data('suggestions');
+              $(this).val(suggestions.terms[suggestions.index]);
               // clean the suggestion for the looks 
               $suggest.empty();
               return false;
@@ -158,9 +158,10 @@
           // by escaping the input' string for use with regex 
           // we allow to search for terms containing specials chars as well
           var regex = new RegExp('^' + needle.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
-          var suggestions = [];
+          var suggestions = [], terms = [];
           for (var i = 0, l = source; i < l.length; i++) {
             if (regex.test(l[i])) {      
+              terms.push(l[i]);
               suggestions.push(needleWithWhiteSpace + l[i].slice(needle.length));
             }
           }
@@ -173,6 +174,7 @@
             // store found suggestions in data for use with arrow keys
             $(this).data('suggestions', {
               'all'    : suggestions,
+              'terms'  : terms,
               'index'  : 0,
               'suggest': $suggest
             });

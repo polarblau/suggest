@@ -170,6 +170,14 @@ describe('suggest', function() {
     $input.trigger(ENTER_EVENT);
     expect($input.val()).toEqual("c++");
   });
+  
+  it('should accept suggestion in the original case', function() {
+    var $input = $("#search").suggest(["FoO"]);
+    enterTextAndTriggerKeyUp($input, "f", 70);
+    expect($input.next("div").text()).toEqual("foO");
+    $input.trigger(ENTER_EVENT);
+    expect($input.val()).toEqual("FoO");
+  });
 
   it('should remove the suggestion on blur', function() {
     var $input = $("#search").suggest(["Foo"]);
