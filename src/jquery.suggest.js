@@ -90,6 +90,13 @@
           if (code == 9 && !e.altKey) {
             e.preventDefault();
           
+          // let's prevent default enter behavior while a suggestion
+          // is being accepted (e.g. while submitting a form)
+          } else if (code == 13) {
+            if (!$suggest.is(':empty')) {
+              e.preventDefault();
+            }
+          
           // use arrow keys to cycle through suggestions
           } else if (code == 38 || code == 40) {
             e.preventDefault();
@@ -128,11 +135,15 @@
           // accept suggestion with 'enter' or 'tab'
           // if the suggestion hasn't been accepted yet
           if (code == 9 || code == 13) {
-            e.preventDefault();
-            $(this).val($suggest.text());
-            // clean the suggestion for the looks 
-            $suggest.empty();
-            return false;
+            // only accept if there's anything suggested
+            if ($suggest.text().length > 0) {
+              
+              e.preventDefault();
+              $(this).val($suggest.text());
+              // clean the suggestion for the looks 
+              $suggest.empty();
+              return false;
+            }
           }
           
           // make sure the helper is empty

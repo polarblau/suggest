@@ -144,6 +144,16 @@ describe('suggest', function() {
     $input.trigger(ENTER_EVENT);
     expect($input.val()).toEqual("foo");
   });
+  
+  it('should keep the suggestion after accepting and hitting enter again', function() {
+    var $input = $("#search").suggest(["foo"]);
+    enterTextAndTriggerKeyUp($input, "f", 70);
+    expect($input.next("div").text()).toEqual("foo");
+    $input.trigger(ENTER_EVENT);
+    expect($input.val()).toEqual("foo");
+    $input.trigger(ENTER_EVENT);
+    expect($input.val()).toEqual("foo");
+  });
 
   it('should accept suggestion on tab', function() {
     var $input = $("#search").suggest(["foo"]);
