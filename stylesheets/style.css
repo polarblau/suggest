@@ -63,7 +63,7 @@ td { vertical-align: top; }
 
 
 /* ==|== primary styles =====================================================
-   Author: 
+   Author:
    ========================================================================== */
 
 body {
@@ -88,26 +88,27 @@ header h1 span {
   border: 1px solid #ccc;
   position: absolute;
   bottom: -0.25em;
+  margin-left: 10px;
 }
 
-.container { 
-  position:relative; 
-  width: 600px; 
-  padding: 40px 60px; 
+.container {
+  position:relative;
+  width: 600px;
+  padding: 40px 60px;
   border: 1px solid #b4aec8;
   margin: 40px auto 0.5em;
   background: #fff;
   -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0 0 15px rgba(0,0,0,0.1); 
-  box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
-  
+
 .container .container pre,
-.container .prettyprint { 
-  padding: 0 20px; 
-  border: 1px solid #bab1cc; 
-  margin: 0 0 20px; 
-  font-size: 14px; 
+.container .prettyprint {
+  padding: 0 20px;
+  border: 1px solid #bab1cc;
+  margin: 0 0 20px;
+  font-size: 14px;
   background: #eeecf1;
 }
 
@@ -115,21 +116,21 @@ header h1 span {
   color: #9c8eb7;
 }
 
-.ribbon { 
-  position: absolute; 
-  top: -1px; 
-  right: -1px; 
+.ribbon {
+  position: absolute;
+  top: -1px;
+  right: -1px;
   opacity: 0.9;
 }
-.ribbon:hover, .ribbon:focus, .ribbon:active { 
+.ribbon:hover, .ribbon:focus, .ribbon:active {
   opacity: 1;
 }
-.ribbon img { 
-  display: block; 
+.ribbon img {
+  display: block;
   border: 0;
 }
 
-header { 
+header {
   padding-right: 80px;
   margin-bottom: 3em;
 }
@@ -138,7 +139,7 @@ header {
   margin: 4em 0 2em;
 }
 
-#container > div > div { 
+#container > div > div {
   margin: 1em 0 2em;
 }
 
@@ -146,8 +147,8 @@ header {
   margin-right: 10px;
 }
 
-p small { 
-  color: #666; 
+p small {
+  color: #666;
 }
 
 hr {
@@ -163,12 +164,12 @@ footer p {
   margin-bottom: 1.5em;
 }
 
-footer p small { 
-  color: #999; 
+footer p small {
+  color: #999;
   font-size: 0.75em;
 }
 
-footer p small a { 
+footer p small a {
   color: #eeecf1;
 }
 
@@ -198,13 +199,13 @@ footer p small a {
 
 
 /* ==|== print styles ======================================================= */
- 
+
 @media print {
-  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } 
+  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; }
   a, a:visited { text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
   abbr[title]:after { content: " (" attr(title) ")"; }
-  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; } 
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
   pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
   thead { display: table-header-group; }
   tr, img { page-break-inside: avoid; }
