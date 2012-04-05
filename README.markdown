@@ -29,4 +29,4 @@ npm install jquery-suggest
 
 # Contributers
 
-* cabgfx https://github.com/cabgfx
+* **cabgfx** https://github.com/cabgfx
