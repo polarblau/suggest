@@ -19,7 +19,8 @@
     
     var settings = $.extend({
       suggestionColor       : '#ccc',
-      moreIndicatorClass    : 'suggest-more'
+      moreIndicatorClass    : 'suggest-more',
+			  moreIndicatorText			: '&hellip;'
     }, options);
 
     return this.each(function() {
@@ -60,7 +61,7 @@
         },
         'class'             : settings.moreIndicatorClass
       })
-      .html('&hellip;')
+      .html(settings.moreIndicatorText)
       .hide();
 
       $this
