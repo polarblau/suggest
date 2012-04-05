@@ -20,7 +20,7 @@
     var settings = $.extend({
       suggestionColor       : '#ccc',
       moreIndicatorClass    : 'suggest-more',
-      moreIndicatorText			: '&hellip;'
+      moreIndicatorText     : '&hellip;'
     }, options);
 
     return this.each(function() {
