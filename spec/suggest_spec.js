@@ -73,6 +73,13 @@ describe('suggest', function() {
     expect($input.next().next("span").hasClass("foo")).toBeTruthy();
   });
 
+  it('should allow setting the text for the suggestions indicator', function() {
+    var $input = $("#search").suggest(["foo"], {
+      'moreIndicatorText': "something else..."
+    });
+    expect($input.next().next("span").text()).toEqual('something else...');
+  });
+
   // TEST: CSS & Attrbutes 
   it('should set the input background color to transparent', function() {
     var $input = $("#search").suggest(["foo"]);
