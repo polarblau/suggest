@@ -214,7 +214,6 @@ var $more = '';
    */
 
    $(window).resize(function(){
-      console.log('hello');
       $suggest.css({
         'height'          : $this.height(),
         'width'           : $this.css('width'),
