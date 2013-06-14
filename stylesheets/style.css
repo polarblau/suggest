@@ -115,19 +115,24 @@ header h1 span {
 .container p code {
   color: #9c8eb7;
 }
-
 .ribbon {
   position: absolute;
-  top: -1px;
-  right: -1px;
+  top: 0px;
+  right: 0px;
   opacity: 0.9;
+  width: 149px;
+  height: 149px;
 }
+
 .ribbon:hover, .ribbon:focus, .ribbon:active {
   opacity: 1;
 }
+
 .ribbon img {
   display: block;
   border: 0;
+  width: 149px;
+  height: 149px;
 }
 
 header {
