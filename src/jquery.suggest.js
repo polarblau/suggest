@@ -1,7 +1,7 @@
 /*!
  * Suggest jQuery plugin
  *
- * Copyright (c) 2012 Florian Plank (http://www.polarblau.com/)
+ * Copyright (c) 2013 Florian Plank (http://www.polarblau.com/)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
  *
