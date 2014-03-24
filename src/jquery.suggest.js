@@ -22,7 +22,9 @@
     var settings = $.extend({
       suggestionColor       : '#ccc',
       moreIndicatorClass    : 'suggest-more',
-      moreIndicatorText     : '&hellip;'
+      moreIndicatorText     : '&hellip;',
+      multiWords            : false,
+      onKeyup               : null
     }, options);
 
     return this.each(function() {
@@ -47,7 +49,8 @@
           'fontWeight'      : $this.css('fontWeight'),
           'letterSpacing'   : $this.css('letterSpacing'),
           'backgroundColor' : $this.css('backgroundColor'),
-          'color'           : settings.suggestionColor
+          'color'           : settings.suggestionColor,
+	  'z-index'         : -10,
         }
       });
 
@@ -135,6 +138,13 @@
           // convert spaces to make them visible
           var needleWithWhiteSpace = needle.replace(' ', '&nbsp;');
 
+	  // remove anything before last whitespace assuming is was matched alreday	  
+	  var lastWhitespace=0;
+	  if(settings.multiWords) {
+	      lastWhitespace = needle.lastIndexOf(' ')+1;
+	      needle = needle.slice(lastWhitespace);
+	  }
+
           // accept suggestion with 'enter' or 'tab'
           // if the suggestion hasn't been accepted yet
           if (code == 9 || code == 13) {
@@ -142,9 +152,10 @@
             if ($suggest.text().length > 0) {
               e.preventDefault();
               var suggestions = $(this).data('suggestions');
-              $(this).val(suggestions.terms[suggestions.index]);
+              $(this).val($(this).val().slice(0,lastWhitespace)+suggestions.terms[suggestions.index]);
               // clean the suggestion for the looks
               $suggest.empty();
+	      if(settings.onKeyup) settings.onKeyup();
               return false;
             }
           }
@@ -159,7 +170,7 @@
 
           // see if anything in source matches the input
           // by escaping the input' string for use with regex
-          // we allow to search for terms containing specials chars as well
+          // we allow to search for terms containing specials chars as well	  
           var regex = new RegExp('^' + needle.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
           var suggestions = [], terms = [];
           for (var i = 0, l = source; i < l.length; i++) {
@@ -188,6 +199,7 @@
               $more.show();
             }
           }
+	  if(settings.onKeyup) settings.onKeyup();
         })
 
         // clear suggestion on blur
