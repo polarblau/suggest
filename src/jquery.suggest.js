@@ -23,7 +23,8 @@
       suggestionColor       : '#ccc',
       moreIndicatorClass    : 'suggest-more',
       moreIndicatorText     : '&hellip;',
-      multiWords            : false
+      multiWords            : false,
+      onKeyup               : null
     }, options);
 
     return this.each(function() {
@@ -144,7 +145,6 @@
 	      needle = needle.slice(lastWhitespace);
 	  }
 
-
           // accept suggestion with 'enter' or 'tab'
           // if the suggestion hasn't been accepted yet
           if (code == 9 || code == 13) {
@@ -155,6 +155,7 @@
               $(this).val($(this).val().slice(0,lastWhitespace)+suggestions.terms[suggestions.index]);
               // clean the suggestion for the looks
               $suggest.empty();
+	      if(settings.onKeyup) settings.onKeyup();
               return false;
             }
           }
@@ -198,6 +199,7 @@
               $more.show();
             }
           }
+	  if(settings.onKeyup) settings.onKeyup();
         })
 
         // clear suggestion on blur
