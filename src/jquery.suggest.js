@@ -150,26 +150,20 @@
           // what has been input?
           needle = $(this).val();
 
-          var lastSeparator = needle.lastIndexOf(settings.separator)
-          if (lastSeparator > 0)
-          {
-            // needle becomes whatever exists after the comma
-            needle = $(this).val().substring(lastSeparator+1)
+          var lastSeparator = needle.lastIndexOf(settings.separator);
+          if (lastSeparator > 0) {
+            // needle becomes whatever exists after the separator
+            needle = $(this).val().substring(lastSeparator+1);
 
-            // we also need to prepend whatever is before the comma to the suggestion string
-            stringBeforeNeedle = $(this).val().substring(0, lastSeparator+1)
-            if (!stringBeforeNeedle) stringBeforeNeedle = ''
-          } 
-
-          // console.log($(this).val())
-          // console.log('\t'+lastSeparator)
-          // console.log('\t'+needle)
-          // console.log('\t'+stringBeforeNeedle)
+            // we also need to prepend whatever is before the separator to the suggestion string
+            stringBeforeNeedle = $(this).val().substring(0, lastSeparator+1);
+            if (!stringBeforeNeedle) stringBeforeNeedle = '';
+          }
 
           // convert spaces to make them visible
           var needleWithWhiteSpace = needle.replace(' ', '&nbsp;');
 
-          // accept suggestion with 'enter' or 'tab'
+          // accept suggestion with ENTER or TAB
           // if the suggestion hasn't been accepted yet
           if (code == 9 || code == 13) {
             // only accept if there's anything suggested
@@ -181,7 +175,7 @@
               $(this).val(stringBeforeNeedle + suggestions.terms[suggestions.index]);
 
               // clean the suggestion for the looks
-              $suggest.empty()
+              $suggest.empty();
               return false;
             }
           }
@@ -190,7 +184,9 @@
           $suggest.empty()
 
           // if nothing has been input, leave it with that
-          if (!$.trim(needle).length) return false;
+          if (!$.trim(needle).length) {
+            return false;
+          }
 
           // see if anything in source matches the input
           // by escaping the input' string for use with regex
@@ -219,8 +215,9 @@
               'suggest': $suggest
             });
 
-            $(this).data('needle', needle)
-            $(this).data('stringBeforeNeedle', stringBeforeNeedle)
+            // store the needle and stringBeforeNeedle values in data for use with arrow keys
+            $(this).data('needle', needle);
+            $(this).data('stringBeforeNeedle', stringBeforeNeedle);
 
             // show the indicator that there's more suggestions available
             // only for more than one suggestion
