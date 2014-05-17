@@ -2,11 +2,12 @@
 
 ```javascript
 var haystack = ["ActionScript", "AppleScript", "Asp", ...];
-$('#container').suggest(haystack, {
+$('#search').suggest(haystack, {
   // Available options with defaults:
   suggestionColor   : '#cccccc',
   moreIndicatorClass: 'suggest-more'
   moreIndicatorText	: '&hellip;'
+  separator         : ','
 });
 ```
 
@@ -27,6 +28,7 @@ This plugin currently doesn't support remote resources for haystacks for perform
 npm install jquery-suggest
 ```
 
-# Contributers
+# Contributors
 
 * **cabgfx** https://github.com/cabgfx
+* **matteomenapace** https://github.com/matteomenapace
