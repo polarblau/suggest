@@ -44,15 +44,14 @@
           'top'             : $this.css('borderTopWidth'),
           'left'            : $this.css('borderLeftWidth'),
           'padding'         : $this.cssShortForAllSides('padding'),
-          // 'margin'          : $this.cssShortForAllSides('margin'),
+          'margin'          : $this.cssShortForAllSides('margin'),
           'fontFamily'      : $this.css('fontFamily'),
           'fontSize'        : $this.css('fontSize'),
           'fontStyle'       : $this.css('fontStyle'),
           'lineHeight'      : $this.css('lineHeight'),
           'fontWeight'      : $this.css('fontWeight'),
           'letterSpacing'   : $this.css('letterSpacing'),
-          // 'backgroundColor' : $this.css('backgroundColor'),
-          'backgroundColor' : 'transparent',
+          'backgroundColor' : $this.css('backgroundColor'),
           'color'           : settings.suggestionColor,
           'pointer-events'  : 'none'
         }
