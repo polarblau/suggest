@@ -4,10 +4,10 @@
 var haystack = ["ActionScript", "AppleScript", "Asp", ...];
 $('#search').suggest(haystack, {
   // Available options with defaults:
-  suggestionColor   : '#cccccc',
-  moreIndicatorClass: 'suggest-more'
-  moreIndicatorText	: '&hellip;'
-  separator         : ','
+  suggestionColor: 		'#cccccc',
+  moreIndicatorClass: 	'suggest-more',
+  moreIndicatorText: 	'&hellip;',
+  separator: 				','
 });
 ```
 
