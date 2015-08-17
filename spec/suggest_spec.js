@@ -4,7 +4,7 @@ describe('suggest', function() {
   var ENTER_EVENT    = $.Event("keyup", { 'which': 13 });
   var ARD_DOWN_EVENT = $.Event("keydown", { 'which': 40 });
   var ARU_DOWN_EVENT = $.Event("keydown", { 'which': 38 });
-                   
+
   // Helpers
 
   function hasNamesSpacedEvent(el, event, namespace) {
@@ -80,7 +80,7 @@ describe('suggest', function() {
     expect($input.next().next("span").text()).toEqual('something else...');
   });
 
-  // TEST: CSS & Attrbutes 
+  // TEST: CSS & Attributes
   it('should set the input background color to transparent', function() {
     var $input = $("#search").suggest(["foo"]);
     expect($input.css("backgroundColor")).toEqual("rgba(0, 0, 0, 0)");
@@ -125,7 +125,7 @@ describe('suggest', function() {
     enterTextAndTriggerKeyUp($input, "f", 70);
     expect($input.next("div").text()).toEqual("foo");
   });
-  
+
   it('should suggest nothing if the current input matches the first suggestion', function() {
     var $input = $("#search").suggest(["foo", "faa"]);
     enterTextAndTriggerKeyUp($input, "foo", 70);
@@ -151,7 +151,7 @@ describe('suggest', function() {
     $input.trigger(ENTER_EVENT);
     expect($input.val()).toEqual("foo");
   });
-  
+
   it('should keep the suggestion after accepting and hitting enter again', function() {
     var $input = $("#search").suggest(["foo"]);
     enterTextAndTriggerKeyUp($input, "f", 70);
@@ -177,7 +177,7 @@ describe('suggest', function() {
     $input.trigger(ENTER_EVENT);
     expect($input.val()).toEqual("c++");
   });
-  
+
   it('should accept suggestion in the original case', function() {
     var $input = $("#search").suggest(["FoO"]);
     enterTextAndTriggerKeyUp($input, "f", 70);
@@ -209,39 +209,39 @@ describe('suggest', function() {
     $input.trigger("blur");
     expect($input.next("div").text()).toEqual("");
   });
-  
+
   // TEST: Cycling throw multiple suggestions
   it('should append a suggestions indicator', function() {
     var $input = $("#search").suggest(["foo"]);
     expect($input.next().next("span.suggest-more").length).toEqual(1);
     expect($input.next().next("span.suggest-more").text()).toEqual("…");
   });
-  
+
   it('should hide the suggestions indicator by default', function() {
     var $input = $("#search").suggest(["foo"]);
     expect($input.next().next("span.suggest-more").is(":visible")).toBeFalsy();
   });
-  
+
   it('should show the suggestions indicator in case of multiple suggestions on input', function() {
     var $input = $("#search").suggest(["foo", "faa"]);
     enterTextAndTriggerKeyUp($input, "f", 70);
     expect($input.next("div").text()).toEqual("foo");
     expect($input.next().next("span.suggest-more").is(":visible")).toBeTruthy();
   });
-  
+
   it('should hide the suggestions indicator in case of only one suggestion', function() {
     var $input = $("#search").suggest(["foo", "faa"]);
     enterTextAndTriggerKeyUp($input, "foo", 70);
     expect($input.next().next("span.suggest-more").is(":visible")).toBeFalsy();
   });
-  
+
   it('should show the next suggestion when the arrow down key is pressed', function() {
     var $input = $("#search").suggest(["foo", "faa"]);
     enterTextAndTriggerKeyUp($input, "f", 70);
     $input.trigger(ARD_DOWN_EVENT);
     expect($input.next("div").text()).toEqual("faa");
   });
-  
+
   it('should show the prev suggestion when the arrow up key is pressed', function() {
     var $input = $("#search").suggest(["foo", "faa"]);
     enterTextAndTriggerKeyUp($input, "f", 70);
@@ -249,9 +249,22 @@ describe('suggest', function() {
     $input.trigger(ARU_DOWN_EVENT);
     expect($input.next("div").text()).toEqual("foo");
   });
-  
 
-  // TEST: General jQuery plugin functionality 
+  // TEST: Changing source
+  it('should allow for changing of the source array', function() {
+    // TODO: split up
+    var $input = $("#search").suggest(["foo"]);
+    enterTextAndTriggerKeyUp($input, "f", 70);
+    expect($input.next("div").text()).toEqual("foo");
+
+    $input.suggest('setSource', ["fii"]);
+    enterTextAndTriggerKeyUp($input, "f", 70);
+    expect($input.next("div").text()).not.toEqual("foo");
+    expect($input.next("div").text()).toEqual("fii");
+  });
+
+
+  // TEST: General jQuery plugin functionality
   it('should be applicable to multiple elements', function() {
     var $input_1 = $("#search");
     var $input_2 = $('<input type="text" name="search" id="search-1" class="suggest" />').appendTo('body');
@@ -260,6 +273,9 @@ describe('suggest', function() {
     expect($input_2).toBeSuggestified();
     $input_2.remove();
   });
+
+  // TODO: test methods
+  // TODO: test error for unsupported methods
 
   it('should be applicable to some but not other elements', function() {
 
