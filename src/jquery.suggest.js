@@ -47,7 +47,8 @@
           'fontWeight'      : $this.css('fontWeight'),
           'letterSpacing'   : $this.css('letterSpacing'),
           'backgroundColor' : $this.css('backgroundColor'),
-          'color'           : settings.suggestionColor
+          'color'           : settings.suggestionColor,
+          'fontKerning'     : $this.css('fontKerning')
         }
       });
 
