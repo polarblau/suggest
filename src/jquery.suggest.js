@@ -17,6 +17,11 @@
 
 (function($) {
 
+// make $suggest and $more global-er so we can access 
+// them in resize functions
+var $suggest = '';
+var $more = '';
+
   $.fn.suggest = function(source, options) {
 
     var settings = $.extend({
@@ -31,11 +36,12 @@
 
       // this helper will show possible suggestions
       // and needs to match the input field in style
-      var $suggest = $('<div/>', {
+
+      $suggest = $('<div/>', {
         'css' : {
           'position'        : 'absolute',
           'height'          : $this.height(),
-          'width'           : $this.width(),
+          'width'           : $this.css('width'),  // fixes a bug where width: 100% was being set as width: 100px
           'top'             : $this.css('borderTopWidth'),
           'left'            : $this.css('borderLeftWidth'),
           'padding'         : $this.cssShortForAllSides('padding'),
@@ -52,7 +58,8 @@
         }
       });
 
-      var $more = $('<span/>', {
+
+      $more = $('<span/>', {
         'css' : {
           'position'        : 'absolute',
           'top'             : $suggest.height() + parseInt($this.css('fontSize'), 10) / 2,
@@ -201,8 +208,36 @@
         $more.insertAfter($suggest);
 
     });
+  }
 
-  };
+  /* Reset styles for $suggest and $more on resize
+   * in case of a responsive design
+   */
+
+   $(window).resize(function(){
+      $suggest.css({
+        'height'          : $this.height(),
+        'width'           : $this.css('width'),
+        'top'             : $this.css('borderTopWidth'),
+        'left'            : $this.css('borderLeftWidth'),
+        'padding'         : $this.cssShortForAllSides('padding'),
+        'margin'          : $this.cssShortForAllSides('margin'),
+        'fontFamily'      : $this.css('fontFamily'),
+        'fontSize'        : $this.css('fontSize'),
+        'fontStyle'       : $this.css('fontStyle'),
+        'lineHeight'      : $this.css('lineHeight'),
+        'fontWeight'      : $this.css('fontWeight'),
+        'letterSpacing'   : $this.css('letterSpacing'),
+        'backgroundColor' : $this.css('backgroundColor')
+      });
+
+      $more.css({
+        'top'             : $suggest.height() + parseInt($this.css('fontSize'), 10) / 2,
+        'left'            : $suggest.width(),
+        'fontSize'        : $this.css('fontSize'),
+        'fontFamily'      : $this.css('fontFamily')
+      });
+   });
 
   /* A little helper to calculate the sum of different
    * CSS properties around all four sides
