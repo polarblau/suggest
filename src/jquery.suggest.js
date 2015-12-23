@@ -164,7 +164,7 @@
 
 
 				if (!settings.useAjax) {
-					var suggestions = $.fn.suggest.showSuggestion.call(this, needle, source, needleWithWhiteSpace, $suggest, $more);
+					$suggest.trigger($.fn.suggest.EVENT_UPDATE_SUGGESTIONS, [needle, source]);
 				}
 			}
 
