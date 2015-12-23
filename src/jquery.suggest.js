@@ -17,20 +17,20 @@
 
 (function($) {
 
+
 	$.fn.suggest = function(source, options) {
 
 		var settings = $.extend({
-			suggestionColor       : '#ccc',
-			moreIndicatorClass    : 'suggest-more',
-			moreIndicatorText     : '&hellip;'
+			suggestionColor: '#ccc',
+			moreIndicatorClass: 'suggest-more',
+			moreIndicatorText: '&hellip;',
+			useAjax: false
 		}, options);
 
-		var KEYUP_CODE = 38,
-			KEYDOWN_CODE = 40,
+		var UP_CODE = 38,
+			DOWN_CODE = 40,
 			ENTER_CODE = 13,
 			TAB_CODE = 9;
-
-		var EVENT_VALUE_SELECTED = 'value_selected';
 
 
 		return this.each(function() {
@@ -40,41 +40,45 @@
 			// this helper will show possible suggestions
 			// and needs to match the input field in style
 
-			var $suggest = $('<div/>', {
-				'css' : {
-					'position'        : 'absolute',
-					'height'          : $this.height(),
-					'width'           : $this.width(),
-					'top'             : $this.css('borderTopWidth'),
-					'left'            : $this.css('borderLeftWidth'),
-					'padding'         : $this.cssShortForAllSides('padding'),
-					'margin'          : $this.cssShortForAllSides('margin'),
-					'fontFamily'      : $this.css('fontFamily'),
-					'fontSize'        : $this.css('fontSize'),
-					'fontStyle'       : $this.css('fontStyle'),
-					'lineHeight'      : $this.css('lineHeight'),
-					'fontWeight'      : $this.css('fontWeight'),
-					'letterSpacing'   : $this.css('letterSpacing'),
-					'backgroundColor' : $this.css('backgroundColor'),
-					'color'           : settings.suggestionColor
+			var $suggest = $('<div  />', {
+				'css': {
+					'position': 'absolute',
+					'height': $this.height(),
+					'width': $this.width(),
+					'top': $this.css('borderTopWidth'),
+					'left': $this.css('borderLeftWidth'),
+					'padding': $this.cssShortForAllSides('padding'),
+					'margin': $this.cssShortForAllSides('margin'),
+					'fontFamily': $this.css('fontFamily'),
+					'fontSize': $this.css('fontSize'),
+					'fontStyle': $this.css('fontStyle'),
+					'lineHeight': $this.css('lineHeight'),
+					'fontWeight': $this.css('fontWeight'),
+					'letterSpacing': $this.css('letterSpacing'),
+					'backgroundColor': $this.css('backgroundColor'),
+					'color': settings.suggestionColor
 				}
 			});
-			var $more = $('<span/>', {
-				'css' : {
-					'position'        : 'absolute',
-					'top'             : $suggest.height() + parseInt($this.css('fontSize'), 10) / 2,
-					'left'            : $suggest.width(),
-					'display'         : 'block',
-					'fontSize'        : $this.css('fontSize'),
-					'fontFamily'      : $this.css('fontFamily'),
-					'color'           : settings.suggestionColor
+			$suggest.addClass('suggest_container');
+			var $more = $('<span />', {
+				'css': {
+					'position': 'absolute',
+					'top': $suggest.height() + parseInt($this.css('fontSize'), 10) / 2,
+					'left': $suggest.width(),
+					'display': 'block',
+					'fontSize': $this.css('fontSize'),
+					'fontFamily': $this.css('fontFamily'),
+					'color': settings.suggestionColor
 				},
-				'class'             : settings.moreIndicatorClass
+				'class': settings.moreIndicatorClass
 			})
 				.html(settings.moreIndicatorText)
 				.hide();
 
-			function handleKeyDown( event ) {
+			$more.addClass('more_container');
+
+
+			function handleKeyDown(event) {
 				var code = (event.keyCode ? parseInt(event.keyCode) : parseInt(event.which));
 
 				// the tab key will force the focus to the next input
@@ -94,16 +98,16 @@
 				}
 
 				// use arrow keys to cycle through suggestions
-				if (code === KEYUP_CODE || code === KEYDOWN_CODE) {
+				if (code === UP_CODE || code === DOWN_CODE) {
 					event.preventDefault();
 					var suggestions = $(this).data('suggestions');
 
 					if (suggestions.all.length > 1) {
 						// arrow down:
-						if (code === KEYDOWN_CODE && suggestions.index < suggestions.all.length - 1) {
+						if (code === DOWN_CODE && suggestions.index < suggestions.all.length - 1) {
 							suggestions.suggest.html(suggestions.all[++suggestions.index]);
 							// arrow up:
-						} else if (code === KEYUP_CODE && suggestions.index > 0) {
+						} else if (code === UP_CODE && suggestions.index > 0) {
 							suggestions.suggest.html(suggestions.all[--suggestions.index]);
 						}
 						$(this).data('suggestions').index = suggestions.index;
@@ -111,18 +115,12 @@
 				}
 			}
 
-			function handleKeyUp( event ) {
+			function handleKeyUp(event) {
 				var code = (event.keyCode ? event.keyCode : event.which);
 
 				// Have the arrow keys been pressed?
-				if (code === KEYUP_CODE || code === KEYDOWN_CODE) {
+				if (code === UP_CODE || code === DOWN_CODE) {
 					return false;
-				}
-
-				if ( code === ENTER_CODE && $.trim($(this).val()) !== '') {
-					event.preventDefault();
-					$(this).trigger($.fn.suggest.EVENT_VALUE_SUBMITTED, $(this).val());
-					return;
 				}
 
 				// be default we hide the "more suggestions" indicator
@@ -148,6 +146,12 @@
 					return false;
 				}
 
+				if (code === ENTER_CODE && $.trim($(this).val()) !== '') {
+					event.preventDefault();
+					$(this).trigger($.fn.suggest.EVENT_VALUE_SUBMITTED, $(this).val());
+					return;
+				}
+
 				// make sure the helper is empty
 				$suggest.empty();
 
@@ -156,6 +160,18 @@
 					return false;
 				}
 
+				$(this).trigger($.fn.suggest.EVENT_VALUE_TYPED_IN_INPUT, [$(this).val()]);
+
+
+				if (!settings.useAjax) {
+					var suggestions = $.fn.suggest.showSuggestion.call(this, needle, source, needleWithWhiteSpace, $suggest, $more);
+				}
+			}
+
+			function handleUpdateSuggestions(event, needleWithWhiteSpace, source) {
+				$suggest.empty();
+
+				var needle = $.trim(needleWithWhiteSpace);
 				// see if anything in source matches the input
 				// by escaping the input' string for use with regex
 				// we allow to search for terms containing specials chars as well
@@ -175,9 +191,9 @@
 					}
 					// store found suggestions in data for use with arrow keys
 					$(this).data('suggestions', {
-						'all'    : suggestions,
-						'terms'  : terms,
-						'index'  : 0,
+						'all': suggestions,
+						'terms': terms,
+						'index': 0,
 						'suggest': $suggest
 					});
 
@@ -187,33 +203,36 @@
 						$more.show();
 					}
 				}
-			}
+				return suggestions;
 
+			}
 
 			$this
 				.attr({
-					'autocomplete'    : "off",
-					'spellcheck'      : "false",
-					'dir'             : "ltr"
+					'autocomplete': "off",
+					'spellcheck': "false",
+					'dir': "ltr"
 				})
 				// by setting the background to transparent, we will
 				// be able to "see through" to the suggestion helper
 				.css({
-					'background'      : 'transparent'
+					'background': 'transparent'
 				})
 				.wrap($('<div/>', {
 					'css': {
-						'position'      : 'relative',
-						'paddingBottom' : '1em'
+						'position': 'relative',
+						'paddingBottom': '1em'
 					}
 				}))
-				.bind('keydown.suggest', handleKeyDown )
-				.bind('keyup.suggest', handleKeyUp )
+				.bind('keydown.suggest', handleKeyDown)
+				.bind('keyup.suggest', handleKeyUp)
 
 				// clear suggestion on blur
-				.bind('blur.suggest', function(){
+				.bind('blur.suggest', function() {
 					$suggest.empty();
-				});
+				})
+				// update the suggestions when fired
+				.bind($.fn.suggest.EVENT_UPDATE_SUGGESTIONS, handleUpdateSuggestions);
 
 			// insert the suggestion helpers within the wrapper
 			$suggest.insertAfter($this);
@@ -222,8 +241,11 @@
 		});
 	};
 
-	$.fn.suggest.EVENT_VALUE_SELECTED = 'value_selected';
-	$.fn.suggest.EVENT_VALUE_SUBMITTED = 'value_submitted';
+	$.fn.suggest.EVENT_VALUE_SELECTED = 'event.value_selected';
+	$.fn.suggest.EVENT_VALUE_SUBMITTED = 'event.value_submitted';
+	$.fn.suggest.EVENT_VALUE_TYPED_IN_INPUT = 'event.value_typed_in_input';
+	$.fn.suggest.EVENT_UPDATE_SUGGESTIONS = 'event.update_suggestions';
+
 
 	/* A little helper to calculate the sum of different
 	 * CSS properties around all four sides
@@ -233,7 +255,7 @@
 	 */
 	$.fn.cssShortForAllSides = function(property) {
 		var $self = $(this), sum = [];
-		var properties = $.map(['Top', 'Right', 'Bottom', 'Left'], function(side){
+		var properties = $.map(['Top', 'Right', 'Bottom', 'Left'], function(side) {
 			return property + side;
 		});
 		$.each(properties, function(i, e) {
