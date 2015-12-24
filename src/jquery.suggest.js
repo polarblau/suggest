@@ -164,13 +164,12 @@
 
 
 				if (!settings.useAjax) {
-					$suggest.trigger($.fn.suggest.EVENT_UPDATE_SUGGESTIONS, [needle, source]);
+					$(this).trigger($.fn.suggest.EVENT_UPDATE_SUGGESTIONS, [needle, source]);
 				}
 			}
 
 			function handleUpdateSuggestions(event, needleWithWhiteSpace, source) {
 				$suggest.empty();
-
 				var needle = $.trim(needleWithWhiteSpace);
 				// see if anything in source matches the input
 				// by escaping the input' string for use with regex

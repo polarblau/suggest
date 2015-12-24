@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="src/jquery.suggest.js"></script>
+  </head>
+  <body>
+  <style>
+    input#searchText {
+      padding: 5px;
+      font-size: 1.2em;
+      letter-spacing: 0;
+      font-weight: normal;
+      font-family: Helvetica, Arial, sans-serif !important;
+      position: relative;
+      color: #333;
+      width: 200px;
+      background: #fff;
+      z-index: 10;
+    }
+  </style>
+	<input type="text" id="searchText" placeholder="Type something" autocomplete="off" spellcheck="false" dir="ltr" style="background: transparent;">
+	<script>
+		var haystack = ["ActionScript", "AppleScript", "Asp", "Basic" , "C", "C++", "Cobol", "Dylan", "Java", "Python"];
+		$('#searchText').suggest(haystack, {
+			// Available options with defaults:
+			suggestionColor   : '#cccccc',
+			moreIndicatorClass: 'suggest-more',
+			moreIndicatorText : '&hellip;'
+		});
+	</script>
+  </body>
+</html>
