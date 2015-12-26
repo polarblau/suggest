@@ -15,6 +15,7 @@ $('#container').suggest(haystack, {
 ```
 
 More information and demo can be found [here](http://polarblau.github.com/suggest/).
+An example with ajax calls can be found in example.html
 
 The plugin will generate the CSS required based on the input's styles.
 
