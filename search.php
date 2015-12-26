@@ -1,24 +1,24 @@
 <?php
 $ingredients = [
-	'Apple',
-	'Appricot',
-	'Almond',
-	'Asparagus',
-	'Banana',
-	'Black Berry',
-	'Beer',
-	'Bastard Sugar',
-	'Beef',
-	'Cider',
-	'Cinamon',
-	'Chili',
-	'Curry',
+    'Apple',
+    'Appricot',
+    'Almond',
+    'Asparagus',
+    'Banana',
+    'Black Berry',
+    'Beer',
+    'Bastard Sugar',
+    'Beef',
+    'Cider',
+    'Cinamon',
+    'Chili',
+    'Curry',
     'Chicken',
-	'Durian',
-	'Date',
-	'Egg',
-	'Eggplant',
-	'Fig'
+    'Durian',
+    'Date',
+    'Egg',
+    'Eggplant',
+    'Fig'
 ];
 
 $searchString = $_GET['q'];
