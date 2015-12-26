@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="src/jquery.suggest.js"></script>
+  </head>
+  <body>
+  <style>
+    input[type=text] {
+      padding: 5px;
+      font-size: 1.2em;
+      letter-spacing: 0;
+      font-weight: normal;
+      font-family: Helvetica, Arial, sans-serif !important;
+      position: relative;
+      color: #333;
+      width: 200px;
+      background: #fff;
+      z-index: 10;
+    }
+  </style>
+	<!-- fixed array values -->
+	<h1>Static array values</h1>
+	<input type="text" id="searchTextStatic" placeholder="Type something" autocomplete="off" spellcheck="false" dir="ltr" style="background: transparent;">
+	<script>
+		var haystack = ["ActionScript", "AppleScript", "Asp", "Basic" , "C", "C++", "Cobol", "Dylan", "Java", "Python"];
+		$('#searchTextStatic').suggest(haystack, {
+			// Available options with defaults:
+			suggestionColor   : '#cccccc',
+			moreIndicatorClass: 'suggest-more',
+			moreIndicatorText : '&hellip;'
+		});
+	</script>
+	
+	<!-- Ajax json flat array response -->
+	<h1>Ajax values</h1>
+	<input type="text" id="searchTextXhrSimple" placeholder="Type something" autocomplete="off" spellcheck="false" dir="ltr" style="background: transparent;">
+
+	<script>
+		var haystack = ["ActionScript", "AppleScript", "Asp", "Basic" , "C", "C++", "Cobol", "Dylan", "Java", "Python"];
+		$('#searchTextXhrSimple').suggest(haystack, {
+			// Available options with defaults:
+			suggestionColor   : '#cccccc',
+			moreIndicatorClass: 'suggest-more',
+			moreIndicatorText : '&hellip;',
+			xhr: { 
+				url: '/search.php',
+				paramKey: 'q' // the querystring param name passed ?q=<needle value> 
+			}
+		});
+	</script>
+
+	<!-- Ajax json response -->
+	<h1>Ajax on a non flat array result</h1>
+	<pre>[{id: 1, name:'Foo'},{id: 2, name:'Bar'}]</pre>
+
+	<input type="text" id="searchTextXhrComplex" placeholder="Type something" autocomplete="off" spellcheck="false" dir="ltr" style="background: transparent;">
+
+	<script>
+		var haystack = ["ActionScript", "AppleScript", "Asp", "Basic" , "C", "C++", "Cobol", "Dylan", "Java", "Python"];
+		$('#searchTextXhrComplex').suggest(haystack, {
+			// Available options with defaults:
+			suggestionColor   : '#cccccc',
+			moreIndicatorClass: 'suggest-more',
+			moreIndicatorText : '&hellip;',
+			xhr: { 
+				url: '/nested_search.php',
+				paramKey: 'q' // the querystring param name passed ?q=<needle value> 
+			},
+			sourceValueProperty: 'name' // search the name properties
+		});
+	</script>
+  </body>
+</html>
