@@ -10,7 +10,8 @@
  * $('#container').suggest(haystack, {
  *   suggestionColor   : '#cccccc',
  *   moreIndicatorClass: 'suggest-more',
- *   moreIndicatorText : '&hellip;'
+ *   moreIndicatorText : '&hellip;',
+ *   validationKeys    : [35, 39]
  * });
  *
  */
@@ -19,15 +20,24 @@
 
   $.fn.suggest = function(source, options) {
 
+    var CODE_TAB = 9;
+    var CODE_ENTER = 13;
+    var CODE_END = 35;
+    var CODE_ARROW_LEFT = 37;
+    var CODE_ARROW_UP = 38;
+    var CODE_ARROW_RIGHT = 39;
+    var CODE_ARROW_DOWN = 40;
+
     var settings = $.extend({
       suggestionColor       : '#ccc',
       moreIndicatorClass    : 'suggest-more',
-      moreIndicatorText     : '&hellip;'
+      moreIndicatorText     : '&hellip;',
+      validationKeys          : [CODE_TAB, CODE_ENTER]
     }, options);
 
     return this.each(function() {
 
-      $this = $(this);
+      var $this = $(this);
 
       // this helper will show possible suggestions
       // and needs to match the input field in style
@@ -88,30 +98,24 @@
         .bind('keydown.suggest', function(e){
           var code = (e.keyCode ? e.keyCode : e.which);
 
-          // the tab key will force the focus to the next input
-          // already on keydown, let's prevent that
-          // unless the alt key is pressed for convenience
-          if (code == 9 && !e.altKey) {
-            e.preventDefault();
-
-          // let's prevent default enter behavior while a suggestion
-          // is being accepted (e.g. while submitting a form)
-          } else if (code == 13) {
+          // If any key considered as validation key is pressed, prevent
+          // its default action, but only if there were suggestions
+          if ($.inArray(code, settings.validationKeys) !== -1) {
             if (!$suggest.is(':empty')) {
               e.preventDefault();
             }
 
           // use arrow keys to cycle through suggestions
-          } else if (code == 38 || code == 40) {
+          } else if (code === CODE_ARROW_UP || code === CODE_ARROW_DOWN) {
             e.preventDefault();
             var suggestions = $(this).data('suggestions');
 
             if (suggestions.all.length > 1) {
               // arrow down:
-              if (code == 40 && suggestions.index < suggestions.all.length - 1) {
+              if (code === CODE_ARROW_DOWN && suggestions.index < suggestions.all.length - 1) {
                 suggestions.suggest.html(suggestions.all[++suggestions.index]);
               // arrow up:
-              } else if (code == 38 && suggestions.index > 0) {
+              } else if (code === CODE_ARROW_UP && suggestions.index > 0) {
                 suggestions.suggest.html(suggestions.all[--suggestions.index]);
               }
               $(this).data('suggestions').index = suggestions.index;
@@ -123,11 +127,11 @@
           var code = (e.keyCode ? e.keyCode : e.which);
 
           // Have the arrow keys been pressed?
-          if (code == 38 || code == 40) {
+          if (code === CODE_ARROW_UP || code === CODE_ARROW_DOWN) {
             return false;
           }
 
-          // be default we hide the "more suggestions" indicator
+          // by default we hide the "more suggestions" indicator
           $more.hide();
 
           // what has been input?
@@ -138,7 +142,7 @@
 
           // accept suggestion with 'enter' or 'tab'
           // if the suggestion hasn't been accepted yet
-          if (code == 9 || code == 13) {
+          if ($.inArray(code, settings.validationKeys) !== -1) {
             // only accept if there's anything suggested
             if ($suggest.text().length > 0) {
               e.preventDefault();
